@@ -5,6 +5,6 @@ package main.map;
  *
  * @author Michael
  */
-public class DDMap {
-    
+public class XMLFormatException extends Exception{
+
 }
