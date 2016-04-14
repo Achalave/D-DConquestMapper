@@ -19,8 +19,7 @@ public class ImageManager {
         Image image = images.get(name);
         if (image == null) {
             try {
-                image = ImageIO.read(
-                        ClassLoader.getSystemResource("main/images/" + name));
+                image = ImageIO.read(ClassLoader.getSystemResource("main/images/" + name));
                 images.put(name, image);
             } catch (IOException ex) {
                 Logger.getLogger(ImageManager.class.getName()).log(Level.SEVERE, null, ex);
