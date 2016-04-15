@@ -1,9 +1,8 @@
 
 package main.GUI;
 
-import main.map.MapDataManager;
-import main.relationPersistence.DatabaseManager;
-import main.relationPersistence.DatabaseNotFoundException;
+import java.io.File;
+import main.persistance.DatabaseManager;
 
 /**
  *
@@ -11,13 +10,12 @@ import main.relationPersistence.DatabaseNotFoundException;
  */
 public class Test {
 
-    public static void main(String[] args) throws DatabaseNotFoundException{
-        MapDataManager data = new MapDataManager("DD1/testmap/");
-        //data.load();
-        //DatabaseManager.generateTableFiles("DD1/database/", "main/relationPersistence/dataschemas.mschema");
-        DatabaseManager manager = new DatabaseManager("DD1/database/");
-        manager.loadTables();
-        manager.test();
+    public static void main(String[] args){
+        File map = new File("testmap");
+        map.mkdir();
+        DatabaseManager m = new DatabaseManager("testmap/");
+        File db = new File("testmap/relations.db");
+        db.delete();
     }
     
 }

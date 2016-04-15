@@ -109,7 +109,7 @@ public class DDStructure extends DataElement implements Comparable<DDStructure>{
                 if(structID < 0 || distance < 0){
                     throw new XMLFormatException();
                 }
-                DDDistanceAssertion a = new DDDistanceAssertion(structID, distance);
+                DDistanceAssertion a = new DDistanceAssertion(structID, distance);
             }
         }
     }
