@@ -53,4 +53,17 @@ public class StringParser implements AttributeParser{
         return parsedBytes;
     }
 
+    @Override
+    public boolean compareAttribute(Object attr, String compareType, String compareValue) {
+        switch (compareType) {
+            case "<":
+                return ((String)attr).compareTo(compareType) < 0;
+            case "=":
+                return ((String)attr).compareTo(compareType) == 0;
+            case ">":
+                return ((String)attr).compareTo(compareType) > 0;
+        }
+        return false;
+    }
+
 }

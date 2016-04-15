@@ -3,9 +3,7 @@ package main.relationPersistence;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -22,9 +20,8 @@ public class RelationalTable {
     private String[] schema;
     private String[] varTypes;
     private String[] dependancies;
-    private FileReader reader;
     private int tableBegin;
-    private RowParser parser;
+    private final RowParser parser;
     private int numKeys;
     private boolean autoGenFirstKey;
 
@@ -32,8 +29,6 @@ public class RelationalTable {
         tablePath = path;
         sem = new Semaphore(1);
         tableBegin = 0;
-
-        parser = new RowParser(varTypes);
         
         try (Scanner in = new Scanner(new File(path))) {
             String line = in.nextLine();
@@ -92,18 +87,14 @@ public class RelationalTable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(RelationalTable.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        parser = new RowParser(schema, varTypes);
     }
 
     public boolean addTuple(Object[] tuple) {
         try {
             sem.acquire();
-            FileInputStream stream = getInputStream();
-            byte[] bytes = new byte[10];
-            try {
-                System.out.println(stream.available());
-            } catch (IOException ex) {
-                Logger.getLogger(RelationalTable.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
             sem.release();
         } catch (InterruptedException ex) {
             Logger.getLogger(RelationalTable.class.getName()).log(Level.SEVERE, null, ex);
@@ -111,32 +102,14 @@ public class RelationalTable {
         return true;
     }
 
-    private Scanner createTableScanner() {
-        Scanner scan = new Scanner(tablePath);
-        //Skip everything that isnt the header end
-        scan.skip("[^" + DatabaseManager.HEADER_END + "]");
-        scan.nextLine();
-        return scan;
-    }
-
-    private FileReader getFileReader() {
-        try {
-            if (reader == null) {
-
-                reader = new FileReader(tablePath);
-                reader.mark(tableBegin);
-
-            }
-            reader.reset();
-            return reader;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(RelationalTable.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(RelationalTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
-    }
-
+//    public boolean deleteTupleWhere(String condition){
+//        
+//    }
+//    
+//    private boolean deleteTupleWhere(TupleCondition con){
+//        
+//    }
+    
     private FileInputStream getInputStream() {
         try {
             FileInputStream inStream = new FileInputStream(tablePath);

@@ -54,7 +54,8 @@ public class DatabaseManager {
     }
 
     public void test(){
-        //tables.get("EVENTS").addTuple();
+        Object[] tuple = {"test1","test2"};
+        tables.get("EVENTS").addTuple(tuple);
     }
     
     public static void generateTableFiles(String dbPath, String schematicPath) {

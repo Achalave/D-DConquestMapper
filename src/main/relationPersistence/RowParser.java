@@ -11,10 +11,12 @@ public class RowParser {
 
     static StringParser stringParser;
     AttributeParser[] parsers;
+    String[] attributeNames;
     FileInputStream stream;
     int attributeIndex, bytesProcessed;
     
-    public RowParser(String[] varTypes){
+    public RowParser(String[] attributeNames, String[] varTypes){
+        this.attributeNames = attributeNames;
         //Fill out parsers with a parser corresponding to attribute type
         parsers = new AttributeParser[varTypes.length];
         for(int i=0; i<varTypes.length; i++){
@@ -89,5 +91,22 @@ public class RowParser {
         if(attributeIndex == parsers.length){
             attributeIndex = 0;
         }
+    }
+    
+    public AttributeParser getParserForAttribute(int index){
+        return parsers[index];
+    }
+    
+    public String getNameOfAttribute(int index){
+        return attributeNames[index];
+    }
+    
+    public int getIndexOfAttribute(String attr){
+        for(int i=0; i<attributeNames.length; i++){
+            if(attributeNames[i].equals(attr)){
+                return i;
+            }
+        }
+        return -1;
     }
 }

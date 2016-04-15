@@ -26,5 +26,14 @@ public interface AttributeParser {
      */
     public int skipAttribute(FileInputStream stream);
     
+    /**
+     * Implements the comparison of data of this type in a standardized manner.
+     * @param attr The attribute value to be compared.
+     * @param compareType The type of comparison to perform.
+     * @param compareValue The value to compare the attribute to.
+     * @return True if the object satisfies this condition.
+     */
+    public boolean compareAttribute(Object attr, String compareType, String compareValue);
+    
     public int getNumLastParsedBytes();
 }
