@@ -1,0 +1,5 @@
+id1 id2 distance
+String String String
+relate id1 STRUCTURES
+relate id2 STRUCTURES
++

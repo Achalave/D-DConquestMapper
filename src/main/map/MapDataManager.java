@@ -25,6 +25,7 @@ public class MapDataManager {
         this.mapBasePath = mapBasePath;
         pathToStructs = mapBasePath + Paths.baseToStructures;
         pathToEvents = mapBasePath+Paths.baseToEvents;
+        
     }
 
     public void load() {
